@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seu Portal Completo</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      background-color: #ffffff;
+      color: #000000;
+    }
+    header {
+      background-color: #cc0000;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+    nav a {
+      color: white;
+      margin: 0 0.6rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    section article, aside article {
+      background-color: #f9f9f9;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+    section article img {
+      width: 100%;
+      border-radius: 6px;
+    }
+    section article h2 {
+      color: #cc0000;
+      margin: 0.5rem 0;
+    }
+    aside h3 {
+      border-bottom: 2px solid #cc0000;
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
+    }
+    aside ul {
+      list-style: none;
+      padding: 0;
+    }
+    aside li {
+      margin-bottom: 0.8rem;
+    }
+    aside a {
+      color: #000;
+      text-decoration: none;
+    }
+    aside a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      background-color: #f0f0f0;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+    .toolbar {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+    .toolbar button {
+      margin: 0.2rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .save {
+      background-color: #28a745;
+      color: white;
+    }
+    .edit {
+      background-color: #007bff;
+      color: white;
+    }
+    .clear {
+      background-color: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button class="edit" onclick="toggleEdit()">Editar</button>
+    <button class="save" onclick="saveChanges()">Salvar</button>
+    <button class="clear" onclick="resetSite()">Limpar Tudo</button>
+  </div>
+
+  <header contenteditable="false">
+    <h1>Meu Portal Personalizado</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Notícias</a>
+      <a href="#">Tecnologia</a>
+      <a href="#">Esportes</a>
+      <a href="#">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="principal" contenteditable="false">
+      <article>
+        <img src="https://via.placeholder.com/800x400" alt="Imagem da Notícia" />
+        <h2>Título da Notícia Principal</h2>
+        <p>Texto da notícia principal. Você pode editar tudo: título, imagem, texto e links.</p>
+      </article>
+      <article>
+        <h2>Segunda Manchete</h2>
+        <p>Texto adicional ou resumo de outra notícia. Tudo é livre para alterar.</p>
+      </article>
+    </section>
+
+    <aside contenteditable="false">
+      <h3>Últimas Notícias</h3>
+      <ul>
+        <li><a href="#">Notícia 1</a></li>
+        <li><a href="#">Notícia 2</a></li>
+        <li><a href="#">Notícia 3</a></li>
+        <li><a href="#">Notícia 4</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer contenteditable="false">
+    &copy; 2025 Meu Portal - Todos os direitos reservados.
+  </footer>
+
+  <script>
+    const editableElements = document.querySelectorAll('[contenteditable]');
+
+    function toggleEdit() {
+      editableElements.forEach(el => {
+        const isEditable = el.getAttribute('contenteditable') === 'true';
+        el.setAttribute('contenteditable', !isEditable);
+      });
+      alert('Modo de edição ativado! Agora você pode clicar e editar qualquer texto.');
+    }
+
+    function saveChanges() {
+      localStorage.setItem('savedContent', document.body.innerHTML);
+      alert('Alterações salvas com sucesso!');
+    }
+
+    function resetSite() {
+      if (confirm('Tem certeza que deseja limpar todas as alterações?')) {
+        localStorage.removeItem('savedContent');
+        location.reload();
+      }
+    }
+
+    window.onload = function() {
+      const saved = localStorage.getItem('savedContent');
+      if (saved) document.body.innerHTML = saved;
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
